@@ -34,8 +34,27 @@ def multipleAnalysis():
             link = request.form.get('link')
             site = request.form.get('platform')
             CourseInfo['totalCourses'] += 1
+
             CourseInfo['courses'].append(WebScraping(link,site))
+            #WebsScraping will return dictoionary as:
+            # CourseInfo = {
+            #     'totalCourses': 0,
+            #     'courses': [
+            #         {
+            #             'title': 'xyz',
+            #             'duration': '34 hr',
+            #             'instructor': 'Maruti Patil',...,
+            #             'comments':[
+            #                 'Hello WOrld',
+            #                 'Great course',...
+            #             ]
+            #         },...
+            #     ]
+            # }
+
+            # We will load the model here and after calling it with list of comments as parameter it should return rating
             # CourseInfo['courses'][-1]['rating'] = model(CourseInfo.comments)
             CourseInfo['courses'][-1]['rating'] = 4.5
+            
         return render_template('multipleAnalysisReport.html',CourseInfo=CourseInfo)
     
