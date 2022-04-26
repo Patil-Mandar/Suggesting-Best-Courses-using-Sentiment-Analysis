@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>{{ CourseInfo.courses[0].title }}</h1>
+<h4>by {{ CourseInfo.courses[0].instructor }}</h4>
+<p>Duration : {{ CourseInfo.courses[0].duration }}</p>
+<p>Rating : {{ CourseInfo.courses[0].rating }}</p>
+
+<form action="/multipleAnalysis" method="post">
+    <input type="text" name="firstTime" value="true" hidden>
+    <button>Compare with Other Courses</button>
+</form>
+{% endblock %}

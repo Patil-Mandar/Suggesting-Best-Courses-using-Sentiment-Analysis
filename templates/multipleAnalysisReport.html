@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>Total Courses</h1>
+
+{% for course in CourseInfo.courses %}
+    <h1>{{ course.title }}</h1>
+    <h4>by {{ course.instructor }}</h4>
+    <p>Duration : {{ course.duration }}</p>
+    <p>Rating : {{ course.rating }}</p>
+    <br>
+{% endfor %}
+
+{% if CourseInfo.totalCourses<5 %}
+    <form action="/multipleAnalysis" method="post">
+        <label for="link">Enter Course URL link:</label>
+        <input type="text" placeholder="url link" name="link" id="link">
+        <label for="platform">Platform</label>
+        <select name="platform" id="platform">
+            <option value="Udemy">Udemy</option>
+            <option value="YouTube">YouTube</option>
+            <option value="Coursera">Coursera</option>
+        </select>
+        <button>Add</button>
+    </form>
+{% endif %}
+{% endblock %}
