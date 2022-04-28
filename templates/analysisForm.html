@@ -2,17 +2,27 @@
 
 {% block body %}
 
-<form action="/analysis" method="post">
-    <label for="link">Enter Course URL link:</label>
-    <input type="text" placeholder="url link" name="link" id="link">
-    <label for="platform">Platform</label>
-    <select name="platform" id="platform">
-        <option value="Udemy">Udemy</option>
-        <option value="YouTube">YouTube</option>
-        <option value="Coursera">Coursera</option>
-    </select>
-    <button>Analyse</button>
-</form>
-
+<div class="row w-100 "> 
+    <div class="col-md-6 offset-md-3 text-center">
+        <div class="px-3 text-center">
+            <h1>Suggesting Best Courses</h1>
+            <h4> Using Sentimental Analysis</h4>
+        </div>  
+    <form action="/analysis" method="post" class="mt-5">
+        <input type="url" placeholder="Paste the URL link of course here" name="link" id="link" class="form-control form-rounded rounded shadow text-center" required>
+        <div class="row">
+            <div class="col-4 offset-4">
+                <select name="platform" id="platform" class="form-select rounded shadow mt-3  text-center text-muted" required>
+                    <option selected><p class="lead">Select Platform</p></option>
+                    <option value="Udemy">Udemy</option>
+                    <option value="Youtube">YouTube</option>
+                    <option value="Coursera">Coursera</option>
+                </select><br>
+            </div>
+        </div>
+        <button class="mt-3 btn btn-success">Analyse</button>
+    </form>
+    </div>
+</div>
 
 {% endblock %}

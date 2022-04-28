@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from webScraping import WebScraping
+import pickle
 
 app = Flask(__name__)
 
@@ -23,8 +24,11 @@ def analysis():
         CourseInfo['totalCourses'] = 1
         CourseInfo['courses'].clear() 
         CourseInfo['courses'].append(WebScraping(link,site))
+        # model = pickle.load(open('model.pkl','rb'))
         # CourseInfo['courses'][0]['rating'] = model(CourseInfo.comments)
         CourseInfo['courses'][0]['rating'] = 4.5
+        CourseInfo['courses'][0]['platform'] = site
+        CourseInfo['courses'][0]['link'] = link
         return render_template('analysisReport.html',CourseInfo=CourseInfo)
 
 @app.route('/multipleAnalysis',methods=['GET','POST'])
@@ -58,3 +62,10 @@ def multipleAnalysis():
             
         return render_template('multipleAnalysisReport.html',CourseInfo=CourseInfo)
     
+#TODO
+@app.route('/aboutus')
+def aboutus():
+    return "Hello"
+
+if __name__ == "__main__":
+    app.run(debug=True)

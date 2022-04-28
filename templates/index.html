@@ -1,10 +1,27 @@
 {% extends 'layout.html' %}
-
 {% block body %}
 
-<p>About Us</p>
-<form action="/analysis">
-    <button>Get Started</button>
-</form>
+    <div class="row w-100 justify-content-center aligns-items-center"> 
+        <div class="col-md-6">
+            <main class="px-3 text-center">
+                <h1>Suggesting Best Courses</h1>
+                <h4> Using Sentimental Analysis</h4>
+                <p class="lead">Find the best course for you</p>
+                <a href="/analysis" class="btn btn-lg btn-secondary font-weight-bold border-black bg-black mt-3">Get Started</a>
+            </main>
+        </div>
+    </div>
+
+    
+    <!-- <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column"> 
+
+        <main class="px-3">
+            <h1>Suggesting Best Courses</h1>
+            <h4> Using Sentimental Analysis</h4>
+            <p class="lead">Find the best course for you</p>
+            <a href="/analysis" class="btn btn-lg btn-secondary font-weight-bold border-black bg-black">Get Started</a>
+        </main>
+    </div> -->
 
 {% endblock %}
+
