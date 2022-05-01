@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from webScraping import WebScraping
+from mlmodel import Ratings
 import pickle
 
 app = Flask(__name__)
@@ -26,7 +27,7 @@ def analysis():
         CourseInfo['courses'].append(WebScraping(link,site))
         # model = pickle.load(open('model.pkl','rb'))
         # CourseInfo['courses'][0]['rating'] = model(CourseInfo.comments)
-        CourseInfo['courses'][0]['rating'] = 3
+        CourseInfo['courses'][0]['rating'] = Ratings(CourseInfo['courses'][0]['comments'])
         CourseInfo['courses'][0]['platform'] = site
         CourseInfo['courses'][0]['link'] = link
         return render_template('analysisReport.html',CourseInfo=CourseInfo)
@@ -57,7 +58,7 @@ def multipleAnalysis():
 
             # We will load the model here and after calling it with list of comments as parameter it should return rating
             # CourseInfo['courses'][-1]['rating'] = model(CourseInfo.comments)
-            CourseInfo['courses'][-1]['rating'] = 3
+            CourseInfo['courses'][-1]['rating'] = Ratings(CourseInfo['courses'][-1]['comments'])
             CourseInfo['courses'][-1]['platform'] = site
             CourseInfo['courses'][-1]['link'] = link
         return render_template('multipleAnalysisReport.html',CourseInfo=CourseInfo)
@@ -65,7 +66,7 @@ def multipleAnalysis():
 #TODO
 @app.route('/aboutus')
 def aboutus():
-    return "Hello"
+    return render_template('aboutUs.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
