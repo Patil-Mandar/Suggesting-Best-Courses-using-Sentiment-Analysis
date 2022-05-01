@@ -38,7 +38,7 @@ def WebScraping(link, platform):
         c = soup.findAll('h3', {'class': 'instructor-name headline-3-text bold'})
         for i in c:
             result["instructor"] = i.text
-        c = soup.findAll('div', {'class': 'learners-count'})
+        c = soup.findAll('div', {'class': '_1fpiay2'})
         for i in c:
             result["learner_count"] = i.text
         for k in range(1, 5):
@@ -53,20 +53,28 @@ def WebScraping(link, platform):
         return result
 
     elif site =="Youtube":
+        result['v'] = link[link.index('=')+1:]
         videoId = c_url[(c_url.index("=") + 1):]
         url = 'https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails&id={}&key={}'.format(
             videoId, 'AIzaSyDEgmEzXQ7GCRXqAa8ctgc6jA50vZJLhR4')
         response = urllib.request.urlopen(url)
         data = response.read()
         data = json.loads(data)
-        result["duration"] = data["items"][0]["contentDetails"]["duration"]
+        duration = data["items"][0]["contentDetails"]["duration"]
+        result["duration"] = ''
+        if duration.find('H')!=-1:
+            result["duration"] = result["duration"] + (duration[duration.find('T') + 1:duration.find('H')] + ' Hr ')
+        if duration.find('M')!=-1 and duration.find('H')!=-1:
+            result["duration"] = result["duration"] + ' ' + (duration[duration.find('H') + 1:duration.find('M')] + ' Mins')
+        elif duration.find('M')!=-1:
+            result["duration"] = result["duration"] + ' ' +(duration[duration.find('T') + 1:duration.find('M')] + ' Mins')
 
         url = 'https://youtube.googleapis.com/youtube/v3/videos?part=statistics&id={}&key={}'.format(
             videoId, 'AIzaSyDEgmEzXQ7GCRXqAa8ctgc6jA50vZJLhR4')
         response = urllib.request.urlopen(url)
         data = response.read()
         data = json.loads(data)
-        result["learner_count"] = data["items"][0]["statistics"]["viewCount"]
+        result["learner_count"] = data["items"][0]["statistics"]["viewCount"] + ' views'
 
         url = 'https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id={}&key={}'.format(
             videoId, 'AIzaSyDEgmEzXQ7GCRXqAa8ctgc6jA50vZJLhR4')
@@ -88,5 +96,33 @@ def WebScraping(link, platform):
                 comments.append(data['items'][i]['snippet']['topLevelComment']['snippet']['textDisplay'])
         result["comments"] = comments
         return result
+    
+    elif site == "Udemy":
+        videoId = c_url[51:(c_url.index('?')) - 1]
+        description_link="https://www.udemy.com/course/{}".format(videoId)
+        url = 'https://www.udemy.com/api-2.0/courses/{}/'.format(videoId)
+        response = urllib.request.urlopen(url)
+        data = response.read()
+        data = json.loads(data)
+        result["platform"] = "Udemy"
+        result["title"] = data["title"]
+        result["instructor"] = data["visible_instructors"][0]["display_name"]
+        response = requests.get(url)
+        htmlcontent = response.content
+        # soup = BeautifulSoup(htmlcontent, "html.parser")
+        # c = soup.findAll('div', {'data-purpose': 'safely-set-inner-html:description:description'})
+        result["description"] = 'N.A'
+        result["duration"] = 'N.A'
+        result["learner_count"] = 'N.A'
 
-# webscrapper("https://www.youtube.com/watch?v=y0mhetpGrTU", "YouTube")
+
+        for i in range(1, 10):
+            url = 'https://www.udemy.com/api-2.0/courses/{}/reviews/?page={}'.format(videoId, i)
+            response = urllib.request.urlopen(url)
+            data = response.read()
+            data = json.loads(data)
+            for j in range(len(data["results"])):
+                if data["results"][j]["content"]!='':
+                    comments.append(data["results"][j]["content"])
+        result["comments"] = comments
+        return(result)
