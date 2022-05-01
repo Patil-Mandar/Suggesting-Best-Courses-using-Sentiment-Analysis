@@ -26,6 +26,7 @@
                         </div>
                     </div>
                     <form action="{{CourseInfo.courses[0].link}}" target="_blank">
+                        <input type="text" name="v" id="" value="{{CourseInfo.courses[0].v}}" hidden>
                         <div class="row">
                             <div class="col-4 offset-4">
                                 <button class="btn btn-success">Join Course</button>
@@ -87,7 +88,6 @@ function setGaugeValue(gauge, value) {
     value
   }`;
 }
-
 setGaugeValue(gaugeElement, {{CourseInfo.courses[0].rating}});
 
 </script>
