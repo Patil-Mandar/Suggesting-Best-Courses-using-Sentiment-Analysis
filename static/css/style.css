@@ -30,7 +30,7 @@
     transition: transform 5s ease-out;
   }
   
-  .gauge__cover {
+  .gauge__cover{
     width: 75%;
     height: 150%;
     background: #ffffff;
