@@ -1,6 +1,6 @@
 # Suggesting-Best-Courses-using-Sentiment-Analysis
 
-**This project placed us 4th in Ingenious '22 organized by ISA-VIT, Pune**
+**This project placed us 4th in Ingenious Hackathon'22 organized by ISA-VIT, Pune**
 
 **-> We aimed to analyze courses on the basis of their comments and not just the stars the get.**
 
