@@ -1,12 +1,12 @@
 # Suggesting-Best-Courses-using-Sentiment-Analysis
 
  ## Model files link
- 
+ <pre>
  https://www.mediafire.com/file/1xyj8geqfhwqurj/model.pkl/file
  https://www.mediafire.com/file/c5qcusvf96ckg14/vector.pkl/file
  download these both the files and place it in the root directory
- 
 
+</pre>
 **-> We aimed to analyze courses on the basis of their comments and not just the stars the get.**
 
 **-> You just have to enter the URL of the course you want to analyze.**
