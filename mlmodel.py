@@ -1,9 +1,10 @@
 import pickle
 import math
 def Ratings(comments):
-    vectorizer = pickle.load(open(r'C:\Users\HP\Desktop\ISA\model\vector.pkl','rb'))
+    print("Comments Vishal ",comments)
+    vectorizer = pickle.load(open('./vector.pkl','rb'))
     matrix = vectorizer.transform(comments)
-    model = pickle.load(open(r'C:\Users\HP\Desktop\ISA\model\model.pkl','rb'))
+    model = pickle.load(open('./model.pkl','rb'))
     list_of_ratings = model.predict(matrix)
     count = {
     '1':0,

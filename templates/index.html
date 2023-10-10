@@ -1,27 +1,131 @@
 {% extends 'layout.html' %}
 {% block body %}
 
-    <div class="row w-100 justify-content-center aligns-items-center"> 
-        <div class="col-md-6">
-            <main class="px-3 text-center">
-                <h1>Suggesting Best Courses</h1>
-                <h4> Using Sentimental Analysis</h4>
-                <p class="lead">Find the best course for you</p>
-                <a href="/analysis" class="btn btn-lg btn-secondary font-weight-bold border-black bg-black mt-3">Get Started</a>
-            </main>
-        </div>
-    </div>
-
-    
-    <!-- <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column"> 
-
-        <main class="px-3">
+<!-- <div class="row w-100 justify-content-center aligns-items-center">
+    <div class="col-md-6">
+        <main class="px-3 text-center">
             <h1>Suggesting Best Courses</h1>
-            <h4> Using Sentimental Analysis</h4>
+            <h4>Using Sentimental Analysis</h4>
             <p class="lead">Find the best course for you</p>
-            <a href="/analysis" class="btn btn-lg btn-secondary font-weight-bold border-black bg-black">Get Started</a>
+            <button id="loadButton" onclick="loadFiles()" class="btn btn-lg btn-secondary font-weight-bold border-black bg-black mt-3">Get Started</button>
         </main>
-    </div> -->
+    </div>
+</div>
+
+<script>
+    function loadFiles() {
+        var loadButton = document.getElementById('loadButton');
+        loadButton.disabled = true; // Disable the button to prevent multiple clicks
+
+        // Load index1.html content
+        fetch('http://127.0.0.1:5000/')
+            .then(response => response.text())
+            .then(content => {
+                // Replace the current content with index1.html content
+                document.documentElement.innerHTML = content;
+
+                // Load analysisForm.html content after 5 seconds
+                setTimeout(function () {
+                    fetch('http://127.0.0.1:5000/analysis')
+                        .then(response => response.text())
+                        .then(content => {
+                            // Replace the current content with analysisForm.html content
+                            document.documentElement.innerHTML = content;
+                        });
+                }, 5000); // 5000 milliseconds = 5 seconds
+            });
+    }
+</script>
+
+ -->
+ 
+ <!-- <div class="row w-100 justify-content-center aligns-items-center">
+    <div class="col-md-6">
+        <main class="px-3 text-center">
+            <h1>Suggesting Best Courses</h1>
+            <h4>Using Sentimental Analysis</h4>
+            <p class="lead">Find the best course for you</p>
+            <button id="loadButton" onclick="loadFiles()" class="btn btn-lg btn-secondary font-weight-bold border-black bg-black mt-3">Get Started</button>
+        </main>
+    </div>
+</div>
+
+<script>
+    function loadFiles() {
+        var loadButton = document.getElementById('loadButton');
+        loadButton.disabled = true;  
+
+       
+        var loader = document.createElement('div');
+        loader.className = 'loader';
+        document.body.appendChild(loader);
+
+        // Load index1.html content
+        fetch('http://127.0.0.1:5000/')
+            .then(response => response.text())
+            .then(content => {
+                
+                document.body.removeChild(loader);
+ 
+                document.body.innerHTML = content;
+
+                
+                setTimeout(function () {
+                    fetch('http://127.0.0.1:5000/analysis')
+                        .then(response => response.text())
+                        .then(content => {
+                           
+                            document.body.innerHTML = content;
+                        });
+                }, 5000);  
+            });
+    }
+</script> -->
+
+ 
+
+<div class="row w-100 justify-content-center aligns-items-center">
+    <div class="col-md-6">
+        <main class="px-3 text-center">
+            <h1>Suggesting Best Courses</h1>
+            <h4>Using Sentimental Analysis</h4>
+            <p class="lead">Find the best course for you</p>
+            <button id="loadButton" onclick="loadFiles()" class="btn btn-lg btn-secondary font-weight-bold border-black bg-black mt-3">Get Started</button>
+        </main>
+    </div>
+</div>
+
+<div class="loader-container" id="loaderContainer">
+    <div class="loader"></div>
+</div>
+
+<script>
+    function loadFiles() {
+        var loadButton = document.getElementById('loadButton');
+        loadButton.disabled = true;
+        
+        var loaderContainer = document.getElementById('loaderContainer');
+        loaderContainer.style.display = 'flex';
+
+        // Load index1.html content
+        fetch('http://127.0.0.1:5000/')
+            .then(response => response.text())
+            .then(content => {
+                loaderContainer.style.display = 'none';
+                document.body.innerHTML = content;
+
+                setTimeout(function () {
+                    loaderContainer.style.display = 'flex';
+                    fetch('http://127.0.0.1:5000/analysis')
+                        .then(response => response.text())
+                        .then(content => {
+                            loaderContainer.style.display = 'none';
+                            document.body.innerHTML = content;
+                        });
+                }, 5000);
+            });
+    }
+</script>
+
 
 {% endblock %}
-
