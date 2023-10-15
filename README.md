@@ -1,7 +1,12 @@
 # Suggesting-Best-Courses-using-Sentiment-Analysis
 
-**This project placed us 4th in Ingenious Hackathon'22 organized by ISA-VIT, Pune**
+ ## Model files link
+ <pre>
+ https://www.mediafire.com/file/1xyj8geqfhwqurj/model.pkl/file
+ https://www.mediafire.com/file/c5qcusvf96ckg14/vector.pkl/file
+ download these both the files and place it in the root directory
 
+</pre>
 **-> We aimed to analyze courses on the basis of their comments and not just the stars the get.**
 
 **-> You just have to enter the URL of the course you want to analyze.**
@@ -21,3 +26,4 @@
 **Working -**
 
 ![ISA](https://user-images.githubusercontent.com/76464970/166136619-cd8c02de-2ed2-49e2-a048-d9ad5c28f659.gif)
+ 

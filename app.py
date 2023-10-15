@@ -12,6 +12,9 @@ CourseInfo = {
 
 @app.route('/')
 def index():
+    return render_template('index1.html')
+@app.route('/index')
+def index1():
     return render_template('index.html')
 
 @app.route('/analysis',methods=['GET','POST'])
@@ -21,6 +24,7 @@ def analysis():
     
     if request.method == 'POST':
         link = request.form.get('link')
+      
         site = request.form.get('platform')
         CourseInfo['totalCourses'] = 1
         CourseInfo['courses'].clear() 
@@ -29,7 +33,8 @@ def analysis():
         # CourseInfo['courses'][0]['rating'] = model(CourseInfo.comments)
         CourseInfo['courses'][0]['rating'] = Ratings(CourseInfo['courses'][0]['comments'])
         CourseInfo['courses'][0]['platform'] = site
-        CourseInfo['courses'][0]['link'] = link
+        b=CourseInfo['courses'][0]['link'] = link
+        # print("Vishal Mank",b)
         return render_template('analysisReport.html',CourseInfo=CourseInfo)
 
 @app.route('/multipleAnalysis',methods=['GET','POST'])
@@ -39,25 +44,9 @@ def multipleAnalysis():
             link = request.form.get('link')
             site = request.form.get('platform')
             CourseInfo['totalCourses'] += 1
-            CourseInfo['courses'].append(WebScraping(link,site))
-            #WebsScraping will return dictoionary as:
-            # CourseInfo = {
-            #     'totalCourses': 0,
-            #     'courses': [
-            #         {
-            #             'title': 'xyz',
-            #             'duration': '34 hr',
-            #             'instructor': 'Maruti Patil',...,
-            #             'comments':[
-            #                 'Hello WOrld',
-            #                 'Great course',...
-            #             ]
-            #         },...
-            #     ]
-            # }
-
-            # We will load the model here and after calling it with list of comments as parameter it should return rating
-            # CourseInfo['courses'][-1]['rating'] = model(CourseInfo.comments)
+            v=CourseInfo['courses'].append(WebScraping(link,site))
+            print("chal Hat= ",v)
+          
             CourseInfo['courses'][-1]['rating'] = Ratings(CourseInfo['courses'][-1]['comments'])
             CourseInfo['courses'][-1]['platform'] = site
             CourseInfo['courses'][-1]['link'] = link
@@ -67,6 +56,10 @@ def multipleAnalysis():
 @app.route('/aboutus')
 def aboutus():
     return render_template('aboutUs.html')
+
+@app.route('/anim')
+def aboutus1():
+    return render_template('animation.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
